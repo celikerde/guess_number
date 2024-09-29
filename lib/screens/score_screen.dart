@@ -13,6 +13,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Score Screen'),
+        centerTitle: true,
       ),
     );
   }

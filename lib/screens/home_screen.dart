@@ -22,25 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
   int guessCount = 0;
   int randomNumber = Random().nextInt(100) + 1;
   late TextEditingController _textController;
-  late ConfettiController confettiController;
 
   @override
   void initState() {
     _textController = TextEditingController();
-    confettiController =
-        ConfettiController(duration: const Duration(seconds: 3));
     super.initState();
   }
 
   @override
   void dispose() {
     _textController.dispose();
-    confettiController.dispose();
     super.dispose();
-  }
-
-  void showConfetti() {
-    confettiController.play();
   }
 
   @override
@@ -52,91 +44,75 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         title: const Text('Ana Sayfa'),
       ),
-      body: Stack(
+      body: Column(
         children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: TextField(
-                  controller: _textController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: hintTextMessage,
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () => _textController.clear(),
-                    ),
-                    border: const OutlineInputBorder(),
-                  ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              controller: _textController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                hintText: hintTextMessage,
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () => _textController.clear(),
                 ),
+                border: const OutlineInputBorder(),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    try {
-                      myGuessNumber = int.parse(_textController.text);
-                      if (myGuessNumber <= 0 || myGuessNumber > 100) {
-                        _textController.clear();
-                        showPopupMessage(
-                          title: 'Hata!',
-                          content: intervalErrorMessage,
-                          buttonText: 'Tamam',
-                          context: context,
-                        );
-                        return;
-                      }
-                      guessCount++;
-                      _textController.clear();
-                      if (myGuessNumber < randomNumber) {
-                        guessMessage = guessBiggerNumberMessage;
-                      } else if (myGuessNumber > randomNumber) {
-                        guessMessage = guessSmallerNumberMessage;
-                      } else {
-                        confettiController.play();
-                        showPopupMessage(
-                          title: 'Tebrikler!',
-                          content: "$guessCount tahminde sayıyı buldunuz.",
-                          buttonText: 'Yeniden Oyna!',
-                          context: context,
-                        );
-                        randomNumber = Random().nextInt(100) + 1;
-                        guessCount = 0;
-                      }
-
-                      print("$guessCount. My guess is $myGuessNumber");
-                      setState(() {});
-                    } catch (e) {
-                      _textController.clear();
-                      showPopupMessage(
-                          title: 'Hata!',
-                          content: integerErrorMessage,
-                          buttonText: 'Tamam',
-                          context: context);
-                      print(e.toString());
-                    }
-                  },
-                  child: Center(child: Text(buttonMessage)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(guessMessage),
-              ),
-            ],
-          ),
-          Center(
-            child: ConfettiWidget(
-              confettiController: confettiController,
-              colors: [
-                Colors.red,
-                Colors.green,
-                Colors.blue,
-                Colors.amber,
-              ],
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () {
+                try {
+                  myGuessNumber = int.parse(_textController.text);
+                  if (myGuessNumber <= 0 || myGuessNumber > 100) {
+                    _textController.clear();
+                    showPopupMessage(
+                      title: 'Hata!',
+                      content: intervalErrorMessage,
+                      buttonText: 'Tamam',
+                      context: context,
+                    );
+                    return;
+                  }
+                  guessCount++;
+                  _textController.clear();
+                  if (myGuessNumber < randomNumber) {
+                    guessMessage = guessBiggerNumberMessage;
+                  } else if (myGuessNumber > randomNumber) {
+                    guessMessage = guessSmallerNumberMessage;
+                  } else {
+                    showPopupMessage(
+                        title: 'Tebrikler!',
+                        content: "$guessCount tahminde sayıyı buldunuz.",
+                        buttonText: 'Yeniden Oyna!',
+                        context: context,
+                        showConfetti: true);
+                    randomNumber = Random().nextInt(100) + 1;
+                    guessCount = 0;
+                  }
+
+                  print("$guessCount. My guess is $myGuessNumber");
+                  setState(() {});
+                } catch (e) {
+                  _textController.clear();
+                  showPopupMessage(
+                      title: 'Hata!',
+                      content: integerErrorMessage,
+                      buttonText: 'Tamam',
+                      context: context);
+                  print(e.toString());
+                }
+              },
+              child: Center(child: Text(buttonMessage)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(guessMessage),
+          ),
         ],
       ),
     );
