@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:guess_number/show_popup_message.dart';
 
@@ -12,16 +11,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final String hintTextMessage = '1-100 arası bir tahminde bulunun.';
   final String buttonMessage = 'Tahmin Et!';
+  String returnedMessage = "";
   final String guessSmallerNumberMessage = 'Daha küçük bir sayı deneyin.';
   final String guessBiggerNumberMessage = 'Daha büyük bir sayı deneyin.';
   final String intervalErrorMessage =
       'Tahmininiz 1 ile 100 arasında olmalıdır.';
   final String integerErrorMessage = 'Lütfen tam sayı(1-100) giriniz!';
-  String guessMessage = "";
   int myGuessNumber = 0;
   int guessCount = 0;
   int randomNumber = Random().nextInt(100) + 1;
   late TextEditingController _textController;
+  List<String> guessedNumbers = [];
 
   @override
   void initState() {
@@ -38,16 +38,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     print("Produced number is $randomNumber");
+
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
         title: const Text('Ana Sayfa'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'Sayı Tahmin Oyunu',
+              style: TextStyle(fontSize: 24),
+            ),
+          ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: TextField(
               controller: _textController,
               keyboardType: TextInputType.number,
@@ -62,7 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
+            child: Text(returnedMessage),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
             child: ElevatedButton(
               onPressed: () {
                 try {
@@ -80,9 +94,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   guessCount++;
                   _textController.clear();
                   if (myGuessNumber < randomNumber) {
-                    guessMessage = guessBiggerNumberMessage;
+                    returnedMessage = guessBiggerNumberMessage;
+                    guessedNumbers.add(">$myGuessNumber");
                   } else if (myGuessNumber > randomNumber) {
-                    guessMessage = guessSmallerNumberMessage;
+                    returnedMessage = guessSmallerNumberMessage;
+                    guessedNumbers.add("<$myGuessNumber");
                   } else {
                     showPopupMessage(
                         title: 'Tebrikler!',
@@ -90,11 +106,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         buttonText: 'Yeniden Oyna!',
                         context: context,
                         showConfetti: true);
+                    returnedMessage = "";
                     randomNumber = Random().nextInt(100) + 1;
                     guessCount = 0;
+                    guessedNumbers = [];
                   }
-
-                  print("$guessCount. My guess is $myGuessNumber");
                   setState(() {});
                 } catch (e) {
                   _textController.clear();
@@ -110,8 +126,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(guessMessage),
+            padding: const EdgeInsets.all(16),
+            child: Text(
+                guessedNumbers.isNotEmpty ? guessedNumbers.toString() : ''),
           ),
         ],
       ),

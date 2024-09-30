@@ -8,17 +8,17 @@ showPopupMessage({
   required BuildContext context,
   bool showConfetti = false,
 }) {
-  ConfettiController? _confettiController;
+  ConfettiController? confettiController;
   if (showConfetti) {
-    _confettiController =
+    confettiController =
         ConfettiController(duration: const Duration(seconds: 3));
-    _confettiController.play();
+    confettiController.play();
   }
   Widget okButton = TextButton(
     child: Text(buttonText),
     onPressed: () {
       Navigator.pop(context);
-      _confettiController?.dispose();
+      confettiController?.dispose();
     },
   );
 
@@ -37,12 +37,17 @@ showPopupMessage({
         alignment: Alignment.center,
         children: [
           alert,
-          if (showConfetti && _confettiController != null)
+          if (showConfetti && confettiController != null)
             ConfettiWidget(
-              confettiController: _confettiController,
+              confettiController: confettiController,
               blastDirectionality: BlastDirectionality.explosive,
               shouldLoop: false,
-              colors: [Colors.blue, Colors.green, Colors.pink, Colors.orange],
+              colors: const [
+                Colors.blue,
+                Colors.green,
+                Colors.pink,
+                Colors.orange
+              ],
             )
         ],
       );
