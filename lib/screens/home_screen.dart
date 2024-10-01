@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:guess_number/show_popup_message.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,18 +15,20 @@ class _HomeScreenState extends State<HomeScreen> {
   String returnedMessage = "";
   final String guessSmallerNumberMessage = 'Daha küçük bir sayı deneyin.';
   final String guessBiggerNumberMessage = 'Daha büyük bir sayı deneyin.';
-  final String intervalErrorMessage =
-      'Tahmininiz 1 ile 100 arasında olmalıdır.';
+  String intervalErrorMessage = 'Tahmininiz 1 ile 100 arasında olmalıdır.';
   final String integerErrorMessage = 'Lütfen tam sayı(1-100) giriniz!';
   int myGuessNumber = 0;
   int guessCount = 0;
   int randomNumber = Random().nextInt(100) + 1;
   late TextEditingController _textController;
   List<String> guessedNumbers = [];
+  List<String> scoreCounts = [];
+  List<String> randomNumbers = [];
 
   @override
   void initState() {
     _textController = TextEditingController();
+    loadScores();
     super.initState();
   }
 
@@ -35,10 +38,23 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
+  void setScores(List<String> scores, List<String> randoms) async {
+    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+    setState(() {});
+    sharedPrefs.setStringList('scores', scoreCounts);
+    sharedPrefs.setStringList('randoms', randomNumbers);
+    print("Score Count $scoreCounts");
+  }
+
+  void loadScores() async {
+    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+    scoreCounts = sharedPrefs.getStringList('scores') ?? [];
+    randomNumbers = sharedPrefs.getStringList('randoms') ?? [];
+  }
+
   @override
   Widget build(BuildContext context) {
     print("Produced number is $randomNumber");
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -53,7 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.all(16),
             child: Text(
               'Sayı Tahmin Oyunu',
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(
+                fontSize: 28,
+              ),
             ),
           ),
           Padding(
@@ -63,6 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: hintTextMessage,
+                hintStyle: TextStyle(color: Colors.black),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.clear),
                   onPressed: () => _textController.clear(),
@@ -106,6 +125,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         buttonText: 'Yeniden Oyna!',
                         context: context,
                         showConfetti: true);
+                    scoreCounts.add(guessCount.toString());
+                    randomNumbers.add(randomNumber.toString());
+                    setScores(scoreCounts, randomNumbers);
                     returnedMessage = "";
                     randomNumber = Random().nextInt(100) + 1;
                     guessCount = 0;

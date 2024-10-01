@@ -3,7 +3,9 @@ import 'package:guess_number/screens/home_screen.dart';
 import 'package:guess_number/screens/score_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -15,15 +17,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int currentScreenIndex = 0;
-  List<Widget> screens = const [
-    HomeScreen(),
-    ScoreScreen(),
+  List<Widget> screens = [
+    const HomeScreen(),
+    const ScoreScreen(),
   ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.amber,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),

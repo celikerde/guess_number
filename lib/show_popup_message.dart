@@ -14,12 +14,14 @@ showPopupMessage({
         ConfettiController(duration: const Duration(seconds: 3));
     confettiController.play();
   }
-  Widget okButton = TextButton(
-    child: Text(buttonText),
-    onPressed: () {
-      Navigator.pop(context);
-      confettiController?.dispose();
-    },
+  Widget okButton = Center(
+    child: TextButton(
+      child: Text(buttonText),
+      onPressed: () {
+        Navigator.pop(context);
+        confettiController?.dispose();
+      },
+    ),
   );
 
   AlertDialog alert = AlertDialog(
@@ -32,6 +34,7 @@ showPopupMessage({
 
   showDialog(
     context: context,
+    barrierDismissible: false,
     builder: (BuildContext context) {
       return Stack(
         alignment: Alignment.center,
