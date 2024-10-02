@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
     const HomeScreen(),
     const ScoreScreen(),
   ];
+  List<String> appbarTitles = ['Ana Sayfa', 'Skor Sayfası'];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,6 +32,11 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          centerTitle: true,
+          title: Text(appbarTitles[currentScreenIndex]),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentScreenIndex,
           showUnselectedLabels: false,
@@ -42,11 +48,11 @@ class _MyAppState extends State<MyApp> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Home',
+              label: 'Ana Sayfa',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.score),
-              label: 'Scores',
+              label: 'Skorlar',
             )
           ],
         ),

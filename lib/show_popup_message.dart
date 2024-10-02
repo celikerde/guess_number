@@ -1,7 +1,7 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 
-showPopupMessage({
+void showPopupMessage({
   required String title,
   required String content,
   required String buttonText,
@@ -34,12 +34,16 @@ showPopupMessage({
 
   showDialog(
     context: context,
-    barrierDismissible: false,
+    barrierDismissible: false, // Alert dialog button must be clicked.
     builder: (BuildContext context) {
       return Stack(
         alignment: Alignment.center,
         children: [
-          alert,
+          PopScope(
+            canPop:
+                false, // Anymore with back button cannot ignore alert dialog.
+            child: alert,
+          ),
           if (showConfetti && confettiController != null)
             ConfettiWidget(
               confettiController: confettiController,

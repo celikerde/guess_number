@@ -10,32 +10,26 @@ class ScoreScreen extends StatefulWidget {
 
 class _ScoreScreenState extends State<ScoreScreen> {
   List<String> myScores = [];
-  List<String> myRandoms = [];
-  List<int> myIntScores = [];
+  List<int> myIntScores = []; //parsing to int scores for ordering.
+  late SharedPreferences sharedPrefs;
 
-  void loadScores() async {
-    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+  void initAndLoadScores() async {
+    sharedPrefs = await SharedPreferences.getInstance();
     myScores = sharedPrefs.getStringList('scores') ?? [];
-    myRandoms = sharedPrefs.getStringList('randoms') ?? [];
     myIntScores = myScores.map(int.parse).toList();
     setState(() {});
-    print('My scores is $myScores');
     myIntScores.sort();
-    print(myIntScores);
   }
 
   @override
   void initState() {
-    loadScores();
-
-    setState(() {});
+    initAndLoadScores();
     super.initState();
   }
 
+  //for testing, delete all scores.
   void clearAllScores() async {
-    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
     myScores = [];
-    myRandoms = [];
     sharedPrefs.clear();
     setState(() {});
   }
@@ -43,11 +37,6 @@ class _ScoreScreenState extends State<ScoreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Score Screen'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        centerTitle: true,
-      ),
       body: myScores.isNotEmpty
           ? ListView.builder(
               itemCount: myScores.length,
@@ -58,20 +47,18 @@ class _ScoreScreenState extends State<ScoreScreen> {
                     child: ListTile(
                       title: Center(
                           child:
-                              Text("Score : ${myIntScores.elementAt(index)}")),
-                      //trailing:
-                      //    Text("Random number : ${myRandoms.elementAt(index)}"),
+                              Text("Skor : ${myIntScores.elementAt(index)}")),
                     ),
                   ),
                 );
               },
             )
           : const Center(
-              child: Text('Herhangi bir skor yok.'),
+              child: Text(noScoreMessage),
             ),
       floatingActionButton: myScores.isNotEmpty
           ? FloatingActionButton(
-              child: const Text('Delete'),
+              child: const Text('Sil'),
               onPressed: () {
                 clearAllScores();
               },
@@ -80,3 +67,5 @@ class _ScoreScreenState extends State<ScoreScreen> {
     );
   }
 }
+
+const noScoreMessage = 'Herhangi bir skor yok.';
