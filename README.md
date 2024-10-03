@@ -1,31 +1,29 @@
 # guess_number
 
-Bu uygulama bir sayı tahmin uygulamasıdır. Uygulama, 2 sayfadan oluşmaktadır.
+Bu uygulama bir sayÄ± tahmin uygulamasÄ±dÄ±r. Uygulama, 2 sayfadan oluÅŸmaktadÄ±r.
 
-1. Ana Sayfa/ Oyun Sayfası
-2. Skor Sayfası
+1. Ana Sayfa/ Oyun SayfasÄ±
+2. Skor SayfasÄ±
 
-1. Ana Sayfa/ Oyun Sayfası
+1. Ana Sayfa/ Oyun SayfasÄ±
+Uygulama aÃ§Ä±ldÄ±ÄŸÄ±nda sizi ana sayfa karÅŸÄ±lar. Sayfa aÃ§Ä±lÄ±r aÃ§Ä±lmaz 1-100 arasÄ± rastgele bir tam sayÄ± Ã¼retilir.
+KullanÄ±cÄ±dan bu aralÄ±kta bir tamsayÄ±yÄ±, tahmin olarak girmesi beklenir. SayÄ± bu aralÄ±ktaki bir tam sayÄ± deÄŸilse "Tahmininiz 1 ile 100 arasÄ±nda olmalÄ±dÄ±r." mesajÄ±nÄ± gÃ¶steren bir pop-up mesajÄ± kullanÄ±cÄ±ya gÃ¶sterilir.
+Girilen sayÄ±nÄ±n tam sayÄ± olmadÄ±ÄŸÄ± durumda ise "LÃ¼tfen tam sayÄ±(1-100) giriniz!" mesajÄ±nÄ± gÃ¶steren bir pop-up mesajÄ± kullanÄ±cÄ±ya gÃ¶sterilir.
+SayÄ± tahmini 1-100 arasÄ± bir tam sayÄ± ise bu sayÄ±, Ã¼retilmiÅŸ olan sayÄ±yla karÅŸÄ±laÅŸtÄ±rÄ±lÄ±r.
+Tahmin, doÄŸru sayÄ±dan kÃ¼Ã§Ã¼kse "Daha bÃ¼yÃ¼k bir sayÄ± deneyin" mesajÄ± ekranda gÃ¶sterilir.
+Tahmin, doÄŸru sayÄ±dan bÃ¼yÃ¼kse "Daha kÃ¼Ã§Ã¼k bir sayÄ± deneyin" mesajÄ± ekranda gÃ¶sterilir.
+"Tahmin Et" butonunun altÄ±nda ise girilen tahminlerin, Ã¼retilen sayÄ±dan bÃ¼yÃ¼k mÃ¼ kÃ¼Ã§Ã¼k mÃ¼ olduÄŸu liste halinde gÃ¶sterilir.
+DoÄŸru sayÄ± tahmininde Tebrikler pop-up mesajÄ± ile beraber 3 saniyelik bir konfeti animasyonu ekranda gÃ¶sterilir.
 
-Uygulama açıldığında sizi ana sayfa karşılar. Sayfa açılır açılmaz 1-100 arası rastgele bir tam sayı üretilir.
-Kullanıcıdan bu aralıkta bir tamsayıyı, tahmin olarak girmesi beklenir. Sayı bu aralıktaki bir tam sayı değilse "Tahmininiz 1 ile 100 arasında olmalıdır." mesajını gösteren bir pop-up mesajı kullanıcıya gösterilir.
-Girilen sayının tam sayı olmadığı durumda ise "Lütfen tam sayı(1-100) giriniz!" mesajını gösteren bir pop-up mesajı kullanıcıya gösterilir.
-Sayı tahmini 1-100 arası bir tam sayı ise bu sayı, üretilmiş olan sayıyla karşılaştırılır.
-Tahmin, doğru sayıdan küçükse "Daha büyük bir sayı deneyin" mesajı ekranda gösterilir.
-Tahmin, doğru sayıdan büyükse "Daha küçük bir sayı deneyin" mesajı ekranda gösterilir.
-"Tahmin Et" butonunun altında ise girilen tahminlerin, üretilen sayıdan büyük mü küçük mü olduğu liste halinde gösterilir.
-Doğru sayı tahmininde Tebrikler pop-up mesajı ile beraber 3 saniyelik bir konfeti animasyonu ekranda gösterilir.
+2. Skor SayfasÄ±
+Bu sayfa kullanÄ±cÄ±nÄ±n skorlarÄ±nÄ±n gÃ¶sterildiÄŸi yerdir. Skorlar, doÄŸru sayÄ±ya ulaÅŸana kadar yapÄ±lmÄ±ÅŸ tahmin sayÄ±sÄ±dÄ±r.
+Sayfa, yapÄ±lan tÃ¼m skorlarÄ± kÃ¼Ã§Ã¼kten bÃ¼yÃ¼ÄŸe doÄŸru sÄ±ralar. YapÄ±lan her yeni skor, local db ile kullanÄ±cÄ± telefonuna kaydedilir.
+SaÄŸ kÃ¶ÅŸedeki "Sil" butonu ile tÃ¼m skorlar silinir. TÃ¼m skorlarÄ±n silinmesi durumunda ekranda "Herhangi bir skor yok." mesajÄ± gÃ¶sterilir.
 
-2. Skor Sayfası
-
-Bu sayfa kullanıcının skorlarının gösterildiği yerdir. Skorlar, doğru sayıya ulaşana kadar yapılmış tahmin sayısıdır.
-Sayfa, yapılan tüm skorları küçükten büyüğe doğru sıralar. Yapılan her yeni skor, local db ile kullanıcı telefonuna kaydedilir.
-Sağ köşedeki "Sil" butonu ile tüm skorlar silinir. Tüm skorların silinmesi durumunda ekranda "Herhangi bir skor yok." mesajı gösterilir.
-
-Uygulama Visual Studio Code ile Android Virtual Device kullanılarak geliştirilmiştir. 
-"Confetti ve Shared Preferences" paketleri uygulamaya eklenmiştir.
-Confetti paketi doğru sayı tahmini esnasında gösterilen konfeti animasyonu içindir.
-Shared Preferences ise kullanıcı skorlarını cihazın yerel veritabanında saklamak içindir.  
+Uygulama Visual Studio Code ile Android Virtual Device kullanÄ±larak geliÅŸtirilmiÅŸtir. 
+"Confetti ve Shared Preferences" paketleri uygulamaya eklenmiÅŸtir.
+Confetti paketi doÄŸru sayÄ± tahmini esnasÄ±nda gÃ¶sterilen konfeti animasyonu iÃ§indir.
+Shared Preferences ise kullanÄ±cÄ± skorlarÄ±nÄ± cihazÄ±n yerel veritabanÄ±nda saklamak iÃ§indir.  
 
 
 
