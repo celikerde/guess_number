@@ -110,8 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 try {
                   guessNumber = int.parse(_textController.text);
                   if (guessNumber <= 0 || guessNumber > 100) {
-                    guessedIntNumNotInterval();
-                    return;
+                    throw Exception();
                   }
                   guessCount++;
                   if (guessNumber < randomNumber) {
@@ -121,8 +120,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   } else {
                     correctGuessNum();
                   }
-                } catch (e) {
+                } on FormatException catch (_) {
                   guessedNumberNotInt();
+                } catch (_) {
+                  guessedIntNumNotInterval();
                 }
                 _textController.clear();
               },
