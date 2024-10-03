@@ -20,7 +20,7 @@ Doğru sayı tahmininde "Tebrikler" pop-up mesajı ile beraber 3 saniyelik bir k
 
 Bu sayfa kullanıcının skorlarının gösterildiği yerdir. Skorlar, doğru sayıya ulaşana kadar yapılmış tahmin sayısıdır.
 Sayfa, yapılan tüm skorları küçükten büyüğe doğru sıralar. Yapılan her yeni skor, local db ile kullanıcı telefonuna kaydedilir.
-Sağ köşedeki "Sil" butonu ile tüm skorlar silinir. Tüm skorların silinmesi durumunda ekranda "Herhangi bir skor yok." mesajı gösterilir.
+Sağ alttaki "Sil" butonu ile tüm skorlar silinir. Tüm skorların silinmesi durumunda ekranda "Herhangi bir skor yok." mesajı gösterilir.
 
 Uygulama Visual Studio Code ile Android Virtual Device kullanılarak geliştirilmiştir. 
 "Confetti ve Shared Preferences" paketleri uygulamaya eklenmiştir.
