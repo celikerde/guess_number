@@ -14,7 +14,7 @@ Sayı tahmini 1-100 arası bir tam sayı ise bu sayı, üretilmiş olan sayıyla
 Tahmin, doğru sayıdan küçükse "Daha büyük bir sayı deneyin" mesajı ekranda gösterilir.
 Tahmin, doğru sayıdan büyükse "Daha küçük bir sayı deneyin" mesajı ekranda gösterilir.
 "Tahmin Et" butonunun altında ise girilen tahminlerin, üretilen sayıdan büyük mü küçük mü olduğu liste halinde gösterilir.
-Doğru sayı tahmininde Tebrikler pop-up mesajı ile beraber 3 saniyelik bir konfeti animasyonu ekranda gösterilir.
+Doğru sayı tahmininde "Tebrikler" pop-up mesajı ile beraber 3 saniyelik bir konfeti animasyonu ekranda gösterilir.
 
 # Skor Sayfası
 
